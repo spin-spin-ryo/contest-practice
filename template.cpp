@@ -1,9 +1,18 @@
 #include<iostream>
 #include<vector>
+#include <tuple>
+#include <string>
+#include <algorithm>
+#include <stack>
+#include <utility>
+#include <queue>
+
+
 
 using namespace std;
 using ll = long long;
 #define mod 998244353
+using  vector2d = vector<vector<int> >;
 
 int main(){
     cout << "Hello World" << endl;
