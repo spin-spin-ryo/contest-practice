@@ -17,6 +17,9 @@
         "string_view": "cpp",
         "unordered_map": "cpp",
         "ostream": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "iomanip": "cpp",
+        "map": "cpp",
+        "limits": "cpp"
     }
 }
