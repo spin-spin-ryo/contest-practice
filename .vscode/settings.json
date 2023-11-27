@@ -20,6 +20,9 @@
         "tuple": "cpp",
         "iomanip": "cpp",
         "map": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "list": "cpp",
+        "utility": "cpp",
+        "iosfwd": "cpp"
     }
 }

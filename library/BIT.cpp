@@ -84,7 +84,6 @@ int main(){
     vector<long long> v(N);
     for (int i=0;i<N;i++) v[i] = i;
     BIT solver(v);
-    solver.add(0,1);
+    solver.add(2,1);
     cout << solver.sum(2,10) << endl;
-    
 }
