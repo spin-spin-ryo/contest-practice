@@ -4,11 +4,11 @@
 using namespace std;
 
 class BIT{
-    // 1-indexed
+    // クエリは1-indexedで行う
     public:
 
     BIT() = default;
-    // 入力は0-indexed
+    // 入力するベクトルは0-indexed
     explicit BIT(size_t size): m_bit(size+1){}
 
     explicit BIT(const vector<long long>& v) : m_bit(v.size()+1){
