@@ -58,7 +58,7 @@ class LCA{
         build();
     }
 
-    void DFS(int v, int d, vector<vector<int> > graph){
+    void DFS(int v, int d, vector<vector<int> > &graph){
         visited[v] = true;
         first_appear[v] = euler.size();
         euler.push_back(make_pair(d,v));

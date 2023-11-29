@@ -10,3 +10,7 @@ auto mod2 = [&](int x) { return x % 2;};
 
 ## Moのアルゴリズム
 クエリの平方根で分割するの面白い
+
+## 当たったバグ
+再帰関数について
+https://everykalax.hateblo.jp/entry/2022/04/08/163635

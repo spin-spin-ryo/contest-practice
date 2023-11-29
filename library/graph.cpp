@@ -42,6 +42,19 @@ vector<int> bfs(int start,vector<vector<int>> graph){
     return dis;
 }
 
+void dfs(int u, vector<vector<int>> &graph, vector<int> &first_visit, vector<int> &finish,int &time){
+    for (int v:graph[u]){
+        if (first_visit[v]==-1){
+            first_visit[v] = time;
+            time++;
+            dfs(v,graph,first_visit,finish,time);
+        }
+    }
+    finish[u]=time;
+    time++;
+    return;
+}
+
 
 int main(){
     cout << "Hello World" << endl;
