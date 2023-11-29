@@ -41,7 +41,7 @@ ll count(vector<long double> A,vector<long double> B,vector<long double> C,vecto
     
 }
 
-int main(){
+int32_t main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     ll N,M,K;cin >> N >> M >> K;
