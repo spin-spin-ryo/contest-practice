@@ -36,6 +36,12 @@ void initialize_factor(){
 }
 
 ll cmb(ll n, ll r){
+    if (r > n){
+        return 0;
+    }
+    if (n < 0 || r < 0){
+        return 0;
+    }
     return factorial[n]*factorial_inv[n-r]%mod * factorial_inv[r] % mod;
 }
 
