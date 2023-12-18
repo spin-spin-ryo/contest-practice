@@ -1,7 +1,8 @@
 #include<iostream>
 #include<vector>
-
 using namespace std;
+using ll = long long;
+
 
 class BIT{
     // クエリは1-indexedで行う
@@ -77,6 +78,7 @@ class BIT_RAQ{
     BIT m_bit1;
 
 };
+
 
 
 int main(){

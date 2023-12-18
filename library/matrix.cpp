@@ -46,13 +46,13 @@ vector<vector<ll>> mat_mul(vector<vector<ll>> a,vector<vector<ll>> b){
     return c;
 }
 
-vector<vector<ll>> mat_power(vector<vector<ll>> a,ll n){
+vector<vector<ll>> mat_power(vector<vector<ll>> a,ll s){
     int n= a.size();
     vector<vector<ll>> c(n,vector<ll>(n));
     rep(i,n) c[i][i] = 1;
     vector<vector<ll>> d = a;
-    for (int r=0;n>>r > 0;r++){
-        if ((n>>r)&1){
+    for (int r=0;s>>r > 0;r++){
+        if ((s>>r)&1){
             c = mat_mul(c,d);
         }
         d = mat_mul(d,d);

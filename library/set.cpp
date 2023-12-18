@@ -12,7 +12,6 @@
 #include <set>
 #include <list>
 #include <deque>
-#include <limits>
 
 using namespace std;
 using ll = long long;
@@ -28,4 +27,31 @@ void print(vector<T> v){
         cout << v[i] << endl;
     }
     return;
+}
+
+ll get_max(multiset<ll> &m){
+    if (m.empty()) return 0;
+    auto itr = m.rbegin();
+    return *itr;
+}
+
+ll get_min(multiset<ll> &m){
+    if (m.empty()) return 0;
+    auto itr = m.begin();
+    return *itr;
+}
+
+ll erase_one_element(ll n,multiset<ll> &m){
+    // 要素がないか空だとバグるので注意
+    m.erase(m.find(n));
+}
+
+int main(){
+    multiset<ll> m;
+    m.insert(10);
+    m.insert(5);
+    m.insert(15);
+    m.insert(12);
+    cout << get_max(m) << endl;
+    cout << get_min(m) << endl;
 }

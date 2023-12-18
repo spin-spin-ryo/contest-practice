@@ -11,6 +11,7 @@
 #include <iomanip>
 #include <cmath>
 #include <set>
+#include <limits>
 
 using namespace std;
 using ll = long long;
@@ -58,6 +59,24 @@ struct RMQ{
     }
 
 };
+
+int interval_binary_search(RMQ<ll> solver, ll upper, ll l, ll r){
+    // A[l],...A[r-1] の中で upper以下の最小のindexを返す.
+    if (solver.query(l,r) > upper) return -1;
+    while(r - l >1){
+        ll m = (r+l)/2;
+        if (solver.query(l,m) <= upper){
+            r = m;
+        }else{
+            l = m;
+        }
+    }
+    return l;
+}
+
+
+
+
 
 int main(){
     int n = 5;

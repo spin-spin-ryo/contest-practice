@@ -23,6 +23,7 @@
         "limits": "cpp",
         "list": "cpp",
         "utility": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "cmath": "cpp"
     }
 }

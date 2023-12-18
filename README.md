@@ -5,6 +5,7 @@
 ## ラムダ式
 auto mod2 = [](int x) { return x % 2;};
 auto mod2 = [&](int x) { return x % 2;};
+https://cpprefjp.github.io/lang/cpp11/lambda_expressions.html
 
 ## 全点間対最短路 (Warshall Floyd)
 
@@ -22,3 +23,13 @@ Grundy数 = 0 (if 定義よりわかる負け) else mex(現在の盤面から遷
 mex(S) = Sに含まれない最小の非負整数。
 Grundy数同士は独立？なもの同士でxorで合成できるらしい
 例：Nimは各山のGrundy数が石の数に一致して、複数の山のGrundy数をxorで合成できる。
+
+## ソート
+~~sortをした配列とそれに関する難かしらの量を保持するような構造は存在しなさそう？~~
+ヒープを二つ使えばやっぱりできました。（ヒープでも最大値最小値はすぐとりだせるという当たり前のことを失念していた）
+
+## クラス
+定期的に書かないと忘れる
+https://cpprefjp.github.io/lang/cpp11/defaulted_and_deleted_functions.html
+
+explicit: 暗黙的型変換を禁止する

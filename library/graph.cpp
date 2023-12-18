@@ -55,6 +55,48 @@ void dfs(int u, vector<vector<int>> &graph, vector<int> &first_visit, vector<int
     return;
 }
 
+struct edge{
+    public:
+    ll v;
+    ll cost;
+
+    edge() = default;
+    explicit edge(ll _v, ll c){
+        v = _v;
+        cost = c;
+    }
+};
+
+edge make_edge(ll v, ll cost){
+    edge e(v,cost);
+    return e;
+}
+
+vector<ll> dijkstra(ll start, vector<vector<edge>> graph){
+    int N = graph.size();
+    vector<ll> dis(N,INF);
+    vector<ll> prev(N,-1);
+    priority_queue<pair<ll,ll>> que;
+    prev[start] = start;
+    dis[start] = 0;
+    que.push(make_pair(dis[start],start));
+    while(!que.empty()){
+        auto p = que.top();
+        int u = p.second;
+        for (auto e: graph[u]){
+            int v = e.v;
+            if (dis[v] > dis[u] + e.cost){
+                dis[v] = dis[u] + e.cost;
+                prev[v] = u;
+                que.push(make_pair(dis[v],v));
+            }
+        }
+    }
+    return dis;
+}
+
+
+
 
 int main(){
     cout << "Hello World" << endl;
