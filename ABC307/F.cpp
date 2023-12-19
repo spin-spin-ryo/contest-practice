@@ -18,12 +18,12 @@ using namespace std;
 using ll = long long;
 #define mod 998244353
 #define INF 1e+16
-#define rep(i, x) for(int i = 0; i < (x); i++)
+#define rep(i, x) for(ll i = 0; i < (x); i++)
 
-using  vector2d = vector<vector<int> >;
+using  vector2d = vector<vector<ll> >;
 
 template <typename T>
-void print(vector<T> v){
+void prll(vector<T> v){
     rep(i,v.size()){
         cout << v[i] << endl;
     }
@@ -47,53 +47,46 @@ edge make_edge(ll v, ll cost){
     return e;
 }
 
-template <typename T>
-struct RMQ{
-    const T INF = numeric_limits<T>::max();
-    int n;
-    vector<T> dat;
-    RMQ(int n_):n(), dat(n_*4 ,INF){
-        int x = 1;
-        while (n_>x){
-            x*= 2;
+
+template<typename T>
+struct SparseTable{
+    vector<vector<T> >st;
+    vector<int> lookup;
+
+    SparseTable(const vector<T> &v){
+        int b = 0;
+        while ((1<<b) <= v.size()) ++b;
+        st.assign(b,vector<T>(1<<b));
+        for (int i=0;i<v.size();i++){
+            st[0][i] = v[i];
         }
-        n = x;
-    }
 
-    void update(int i, T x){
-        i += n-1;
-        dat[i] = x;
-        while (i>0){
-            i = (i-1)/2;
-            dat[i] = min(dat[2*i +1],dat[i*2+2]);
-        }
-    }
-
-    T query(int a, int b){
-        return query_sub(a,b,0,0,n);
-    }
-
-    T query_sub(int a, int b, int k, int l, int r){
-        if (r <= a || b <= l){
-            return INF;
-        }else{
-            if (a <= l && r <= b){
-                return dat[k];
+        for (int i=1;i<b;i++){
+            for (int j=0;j+(1 << i) <= (1<<b);j++){
+                st[i][j] = min(st[i-1][j],st[i-1][j + (1 << (i-1))]);
             }
         }
-        T vl = query_sub(a,b,k*2 +1 ,l, (l+r)/2);
-        T vr = query_sub(a,b,k*2+2,(l+r)/2,r);
-        return min(vl,vr);
-    }
+        lookup.resize(v.size() + 1);
 
+        for (int i=2;i < lookup.size();i++){
+            lookup[i] = lookup[i >> 1] + 1;
+        }
+    }
+    // [l,r)
+    inline T rmq(int l, int r){
+        int b = lookup[r-l];
+        return min(st[b][l],st[b][r - (1<<b)]);
+    }
 };
 
-int interval_binary_search(RMQ<ll> solver, ll upper, ll l, ll r){
+
+ll interval_binary_search(SparseTable<ll> &solver, ll upper, ll l, ll r){
     // A[l],...A[r-1] の中で upper以下の最小のindexを返す.
-    if (solver.query(l,r) > upper) return -1;
+    if (r-l == 0) return -1;
+    if (solver.rmq(l,r) > upper) return -1;
     while(r - l >1){
         ll m = (r+l)/2;
-        if (solver.query(l,m) <= upper){
+        if (solver.rmq(l,m) <= upper){
             r = m;
         }else{
             l = m;
@@ -104,11 +97,14 @@ int interval_binary_search(RMQ<ll> solver, ll upper, ll l, ll r){
 
 
 int main(){
+    ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+
     ll N,M; cin >> N >> M;
     vector<vector<edge>> graph(N);
     vector<ll> dis(N,INF);
     vector<ll> prev(N,-1);
-    priority_queue<pair<ll,ll>> que;
+    priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> que;
     rep(i,M){
         ll u,v,w;cin >> u >> v >> w;
         u--;v--;
@@ -128,18 +124,21 @@ int main(){
     }
     ll D;cin >> D;
     vector<ll> X(D);
-    rep(i,D) cin >> X[i];
-    RMQ<ll> solver(D);
+    vector<ll> Y(D);
     rep(i,D){
-        solver.update(i,-X[i]);
+        cin >> X[i];
+        Y[i]= -X[i];
     }
+    SparseTable<ll> solver(Y);
     vector<ll> res(N,0);
     while(!que.empty()){
         auto p = que.top();
         que.pop();
-        int u = p.second;
+        ll u = p.second;
+        ll d = p.first;
+        if (d > dis[u]) continue;
         for (auto e:graph[u]){
-            int v = e.v;
+            ll v = e.v;
             if (dis[v] > dis[u] + e.cost){
                 dis[v] = dis[u] + e.cost;
                 prev[v] = u;
@@ -150,14 +149,41 @@ int main(){
                         day[v] = day[u];
                         res[v] = l - e.cost;
                     }
-                    ll index = interval_binary_search(solver,day[u],N);
-                    if (day[v]>index + 1){
+                    ll index = interval_binary_search(solver,-e.cost,day[u],D);
+                    if (day[v]>index + 1 & index != -1){
                         day[v] = index+1;
                         res[v] = X[index] - e.cost;
                     }
                 }
             }
+            if (dis[v]==dis[u]+e.cost){
+                bool flag = false;
+                if (day[u] < INF){
+                    ll l = res[u];
+                    if (l >= e.cost){
+                        day[v] = day[u];
+                        res[v] = l - e.cost;
+                        flag = true;
+                    }
+                    ll index = interval_binary_search(solver,-e.cost,day[u],D);
+                    if (day[v]>index + 1 & index != -1){
+                        day[v] = index+1;
+                        res[v] = X[index] - e.cost;
+                        flag = true;
+                    }
+                }
+                if (flag){
+                    que.push(make_pair(dis[v],v));
+                }
+            }
         }
+    }
+    rep(i,N){
+        if (day[i] == INF){
+            cout << -1 << endl;
+        }else{
+            cout << day[i] << endl;
+        }    
     }
 
 }

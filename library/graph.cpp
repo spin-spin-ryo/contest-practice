@@ -76,13 +76,15 @@ vector<ll> dijkstra(ll start, vector<vector<edge>> graph){
     int N = graph.size();
     vector<ll> dis(N,INF);
     vector<ll> prev(N,-1);
-    priority_queue<pair<ll,ll>> que;
+    priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> que;
     prev[start] = start;
     dis[start] = 0;
     que.push(make_pair(dis[start],start));
     while(!que.empty()){
         auto p = que.top();
+        int d = p.first;
         int u = p.second;
+        if (d > dis[u]) continue;
         for (auto e: graph[u]){
             int v = e.v;
             if (dis[v] > dis[u] + e.cost){

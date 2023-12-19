@@ -60,7 +60,8 @@ struct RMQ{
 
 };
 
-int interval_binary_search(RMQ<ll> solver, ll upper, ll l, ll r){
+// sparse tableを用いるとlognでいける
+int interval_binary_search(RMQ<ll> &solver, ll upper, ll l, ll r){
     // A[l],...A[r-1] の中で upper以下の最小のindexを返す.
     if (solver.query(l,r) > upper) return -1;
     while(r - l >1){

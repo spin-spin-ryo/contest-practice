@@ -15,6 +15,7 @@ https://cpprefjp.github.io/lang/cpp11/lambda_expressions.html
 ## 当たったバグ
 再帰関数について
 https://everykalax.hateblo.jp/entry/2022/04/08/163635
+そもそもでかい構造体を引数に使う関数を使うときはアドレス参照にしないと遅い。
 
 ## ゲーム理論的なやつ
 Grundy数 : ゲームの盤面を非負整数で表したもの。0ならば先手負け。それ以外は価値。
@@ -33,3 +34,6 @@ Grundy数同士は独立？なもの同士でxorで合成できるらしい
 https://cpprefjp.github.io/lang/cpp11/defaulted_and_deleted_functions.html
 
 explicit: 暗黙的型変換を禁止する
+
+## たまに当たる問題
+(a,b)と(a_i,b_i)に対してa>=a_i, b>=b_iとなるものが存在するか→seg木と座圧でいける。
