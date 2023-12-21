@@ -34,27 +34,32 @@ int main(){
     ll N,M;cin >> N >> M;
     vector<ll> P(N);
     rep(i,N) cin >> P[i];
-    multiset<pair<ll,ll>> c;
     vector<ll> L(M);
     vector<ll> D(M);
     rep(i,M) cin >> L[i];
     rep(i,M) cin >> D[i];
-    rep(i,M){
-        c.insert(make_pair(L[i],D[i]));
-    }
-
-    sort(P.begin(),P.end());
-    ll ans = 0;
+    priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> que;
     rep(i,N){
-        auto itr = c.upper_bound(make_pair(P[i],(ll)INF));
-        if (itr != c.begin()){
-            itr -- ;
-            ll d = (*itr).second;
-            ans += P[i] - d;
-            c.erase(itr);
+        que.push(make_pair(P[i],INF));
+    }
+    rep(i,M){
+        que.push(make_pair(L[i],D[i]));
+    }
+    priority_queue<ll> discount;
+    ll ans = 0;
+    while (!que.empty()){
+        auto p = que.top();
+        que.pop();
+        if (p.second == INF){
+            ans += p.first;
+            if (!discount.empty()){
+                ans -= discount.top();
+                discount.pop();
+            }   
         }else{
-            ans += P[i];
+            discount.push(p.second);
         }
     }
     cout << ans << endl;
+
 }
