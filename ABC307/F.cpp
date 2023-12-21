@@ -101,36 +101,35 @@ int main(){
     std::cin.tie(nullptr);
 
     ll N,M; cin >> N >> M;
-    vector<vector<edge>> graph(N);
-    vector<ll> dis(N,INF);
-    vector<ll> prev(N,-1);
+    vector<vector<edge>> graph(N+1);
+    vector<ll> dis(N+1,INF);
+    vector<ll> prev(N+1,-1);
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> que;
     rep(i,M){
         ll u,v,w;cin >> u >> v >> w;
-        u--;v--;
+        u;v;
         graph[u].push_back(make_edge(v,w));
         graph[v].push_back(make_edge(u,w));
     }
     ll K;cin >> K;
     vector<ll> A(K);
-    vector<ll> day(N,INF);
+    vector<ll> day(N+1,INF);
     rep(i,K){
         cin >> A[i];
-        A[i] --;
-        dis[A[i]] = 0;
-        prev[A[i]] = A[i];
-        que.push(make_pair(dis[A[i]],A[i]));
-        day[A[i]] = 0;
+        graph[0].push_back(make_edge(A[i],0));
     }
+    dis[0] = 0;
+    day[0] = 0;
     ll D;cin >> D;
-    vector<ll> X(D);
-    vector<ll> Y(D);
+    vector<ll> X(D+1,0);
+    vector<ll> Y(D+1,0);
+    que.push(make_pair(0,0));
     rep(i,D){
-        cin >> X[i];
-        Y[i]= -X[i];
+        cin >> X[i+1];
+        Y[i+1]= -X[i+1];
     }
     SparseTable<ll> solver(Y);
-    vector<ll> res(N,0);
+    vector<ll> res(N+1,0);
     while(!que.empty()){
         auto p = que.top();
         que.pop();
@@ -149,9 +148,9 @@ int main(){
                         day[v] = day[u];
                         res[v] = l - e.cost;
                     }
-                    ll index = interval_binary_search(solver,-e.cost,day[u],D);
-                    if (day[v]>index + 1 & index != -1){
-                        day[v] = index+1;
+                    ll index = interval_binary_search(solver,-e.cost,day[u]+1,D+1);
+                    if (day[v] > index  & index != -1){
+                        day[v] = index;
                         res[v] = X[index] - e.cost;
                     }
                 }
@@ -165,9 +164,9 @@ int main(){
                         res[v] = l - e.cost;
                         flag = true;
                     }
-                    ll index = interval_binary_search(solver,-e.cost,day[u],D);
-                    if (day[v]>index + 1 & index != -1){
-                        day[v] = index+1;
+                    ll index = interval_binary_search(solver,-e.cost,day[u]+1,D+1);
+                    if (day[v] > index  & index != -1){
+                        day[v] = index;
                         res[v] = X[index] - e.cost;
                         flag = true;
                     }
@@ -179,10 +178,10 @@ int main(){
         }
     }
     rep(i,N){
-        if (day[i] == INF){
+        if (day[i+1] == INF){
             cout << -1 << endl;
         }else{
-            cout << day[i] << endl;
+            cout << day[i+1] << endl;
         }    
     }
 

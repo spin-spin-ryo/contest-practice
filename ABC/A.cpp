@@ -13,7 +13,6 @@
 #include <list>
 #include <deque>
 #include <limits>
-#include <cassert>
 
 using namespace std;
 using ll = long long;
