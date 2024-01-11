@@ -24,6 +24,7 @@
         "list": "cpp",
         "utility": "cpp",
         "iosfwd": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "set": "cpp"
     }
 }

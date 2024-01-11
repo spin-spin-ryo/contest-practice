@@ -13,6 +13,7 @@
 #include <list>
 #include <deque>
 #include <limits>
+#include <cassert>
 
 using namespace std;
 using ll = long long;
@@ -29,3 +30,20 @@ void print(vector<T> v){
     }
     return;
 }
+
+vector<vector<int>> get_accumulate_sum2d(vector<vector<int>> A){
+    int H = A.size();
+    int W = A[0].size();
+    vector<vector<int>> s(H+1,vector<int>(W+1,0));
+    rep(i,H){
+        rep(j,W){
+            s[i+1][j+1] = A[i][j] + s[i+1][j] + s[i][j+1] - s[i][j];
+        }
+    }
+
+    return s;
+}
+
+// 0-indexedで [x1, x2) × [y1, y2)
+// cout << s[x2][y2] - s[x1][y2] - s[x2][y1] + s[x1][y1] << endl;
+

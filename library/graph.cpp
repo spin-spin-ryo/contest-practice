@@ -67,6 +67,26 @@ struct edge{
     }
 };
 
+void dfs_stack(int start, vector<vector<int>> graph, vector<int> &prev){
+    int N = graph.size();
+    vector<bool> visited(N,false);
+    stack<int> sta;
+    sta.push(start);
+    visited[start] = true;
+    while (!sta.empty()){
+        int u = sta.top();
+        sta.pop();
+        for (auto v:graph[u]){
+            if (!visited[v]){
+                prev[v] = u;
+                visited[v] = true;
+                sta.push(v);
+            }
+        }
+    }
+    return;
+}
+
 edge make_edge(ll v, ll cost){
     edge e(v,cost);
     return e;
