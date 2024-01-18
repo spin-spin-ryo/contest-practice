@@ -45,3 +45,7 @@ xor minimization ↓bit にぶんき
 
 ## 可変変数
 reserveしてmallocしないとばぐることがあるらしい
+
+## unordered_map
+キーにハッシュ関数を適用できるものじゃないとエラります？？</br>
+https://qiita.com/ganyariya/items/df35d253726269bda436

@@ -55,17 +55,7 @@ void dfs(int u, vector<vector<int>> &graph, vector<int> &first_visit, vector<int
     return;
 }
 
-struct edge{
-    public:
-    ll v;
-    ll cost;
 
-    edge() = default;
-    explicit edge(ll _v, ll c){
-        v = _v;
-        cost = c;
-    }
-};
 
 void dfs_stack(int start, vector<vector<int>> graph, vector<int> &prev){
     int N = graph.size();
@@ -87,26 +77,49 @@ void dfs_stack(int start, vector<vector<int>> graph, vector<int> &prev){
     return;
 }
 
-edge make_edge(ll v, ll cost){
-    edge e(v,cost);
+template<typename T>
+struct edge{
+    public:
+    T v;
+    ll cost;
+
+    edge() = default;
+    explicit edge(T _v, ll c){
+        v = _v;
+        cost = c;
+    }
+};
+
+template<typename T>
+edge<T> make_edge(T v, ll cost){
+    edge<T> e(v,cost);
     return e;
 }
 
-vector<ll> dijkstra(ll start, vector<vector<edge>> graph){
+template<typename T>
+unordered_map<T,ll> dijkstra(T start, unordered_map<T,vector<edge<T>>> graph){
     int N = graph.size();
-    vector<ll> dis(N,INF);
-    vector<ll> prev(N,-1);
-    priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> que;
+    unordered_map<T,ll> dis;
+    unordered_map<T,ll> prev;
+    auto itr = graph.begin();
+    while (itr != graph.end()){
+        auto key = (*itr).first;
+        dis[key] = INF;
+        prev[key] = -1;
+    }    
+    
+    priority_queue<pair<ll,T>,vector<pair<ll,T>>,greater<pair<ll,T>>> que;
     prev[start] = start;
     dis[start] = 0;
     que.push(make_pair(dis[start],start));
     while(!que.empty()){
         auto p = que.top();
+        que.pop();
         int d = p.first;
-        int u = p.second;
+        T u = p.second;
         if (d > dis[u]) continue;
         for (auto e: graph[u]){
-            int v = e.v;
+            T v = e.v;
             if (dis[v] > dis[u] + e.cost){
                 dis[v] = dis[u] + e.cost;
                 prev[v] = u;
