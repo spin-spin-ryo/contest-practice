@@ -12,6 +12,7 @@
 #include <set>
 #include <list>
 #include <deque>
+#include <limits>
 
 using namespace std;
 using ll = long long;
@@ -157,20 +158,84 @@ int bipartite_matching(vector<vector<int>> pairs,int n, int m){
 }
 
 
-// int main(){
-//     int n = 4;
-//     vector<vector<edge>> g(n);
-//     g[0].push_back(make_edge(1,4));
-//     g[0].push_back(make_edge(2,3));
-//     g[1].push_back(make_edge(2,2));
-//     g[1].push_back(make_edge(3,3));
-//     g[2].push_back(make_edge(3,2));
-//     max_flow solver(g);
-//     cout << solver.run(0,3) << endl;
-//     return 0;
-// }
+
+struct compressed_vector{
+    public:
+    map<ll,ll> org2com;
+    vector<ll> com2org;
+    vector<ll> original;
+    vector<ll> compressed;
+
+    compressed_vector() = default;
+
+    explicit compressed_vector(vector<ll> _v){
+        original.resize(_v.size());
+        copy(_v.begin(), _v.end(), original.begin());
+        com2org = _v;
+        sort(com2org.begin(), com2org.end());
+        com2org.erase(unique(com2org.begin(), com2org.end()), com2org.end());
+        rep(i,com2org.size()){
+            org2com[com2org[i]] = i;
+        }
+        rep(i,original.size()){
+            compressed.push_back(org2com[original[i]]);
+        }
+    }
+
+    ll& operator[](size_t index){
+        return compressed[index];
+    }
+};
+     
 
 int main(){
-    vector<vector<int>> pairs = {{1,2},{0,1,2},{2}};
-    cout << bipartite_matching(pairs,3,3) << endl;
+    ll N; cin >> N;
+    vector<ll> X(N);
+    vector<ll> L(N);
+    rep(i,N) cin >> X[i];
+    rep(i,N) cin >> L[i];
+    vector<ll> v;
+    rep(i,N){
+        rep(j,N){
+            v.push_back(X[i] - L[j]);
+            v.push_back(X[i] + L[j] + 1);
+        }
+    }
+    compressed_vector com(v);
+    vector<vector<vector<ll>>> sum_v(com.com2org.size(),vector<vector<ll>> (N,vector<ll>(N,0)));
+    rep(i,N){
+        rep(j,N){
+            ll l = com.org2com[X[i] - L[j]];
+            ll r = com.org2com[X[i] + L[j] + 1];
+            sum_v[l][i][j] ++;
+            sum_v[r][i][j] --;
+        }
+    }
+    rep(i,com.com2org.size()-1){
+        rep(j,N){
+            rep(k,N){
+                sum_v[i+1][j][k] += sum_v[i][j][k];
+            }
+        }
+    }
+    ll ans = 0;
+    
+    rep(i,com.com2org.size() - 1){
+        vector<vector<int>> pairs(N);
+        rep(j,N){
+            rep(k,N){
+                if (sum_v[i][j][k] == 1){
+                    pairs[j].push_back(k);
+                }
+            }
+        }
+    
+        // if (bipartite_matching(pairs,N,N) == N){
+        //     // cout << com.com2org[i+1] << " " << com.com2org[i] << endl;
+        //     ans += com.com2org[i+1]  - com.com2org[i];
+        // }
+    }
+    cout << ans << endl;
+
+
 }
