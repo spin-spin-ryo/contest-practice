@@ -29,6 +29,3 @@ void print(vector<T> v){
     }
     return;
 }
-
-int main(){
-}

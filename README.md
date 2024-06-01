@@ -49,3 +49,7 @@ reserveしてmallocしないとばぐることがあるらしい
 ## unordered_map
 キーにハッシュ関数を適用できるものじゃないとエラります？？</br>
 https://qiita.com/ganyariya/items/df35d253726269bda436
+
+## atcoder library
+libraryファイルをmainファイルと同じ階層にコピー</br>
+参考:遅延セグ木 https://betrue12.hateblo.jp/entry/2020/09/23/005940#%E5%8C%BA%E9%96%93%E5%8A%A0%E7%AE%97%E5%8C%BA%E9%96%93%E6%9C%80%E5%B0%8F%E5%80%A4%E5%8F%96%E5%BE%97
