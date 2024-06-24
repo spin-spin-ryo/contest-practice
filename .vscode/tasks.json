@@ -8,8 +8,11 @@
         "-fdiagnostics-color=always",
         "-g",
         "${file}",
+        "-std=c++14",
         "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
+        "${fileDirname}/${fileBasenameNoExtension}.out",
+        "-I",
+        "/Users/dacapo271/development/contest-practice/ac-library"
       ],
       "options": {
         "cwd": "${fileDirname}"
@@ -22,6 +25,12 @@
         "isDefault": true
       },
       "detail": "デバッガーによって生成されたタスク。"
+    },
+    {
+      "label": "Open Terminal",
+      "type": "shell",
+      "command": "osascript -e 'tell application \"Terminal\"\ndo script \"echo hello\"\nend tell'",
+      "problemMatcher": []
     }
   ],
   "version": "2.0.0"
