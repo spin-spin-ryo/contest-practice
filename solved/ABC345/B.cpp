@@ -13,7 +13,6 @@
 #include <list>
 #include <deque>
 #include <limits>
-#include <unordered_map>
 
 using namespace std;
 using ll = long long;
@@ -29,4 +28,13 @@ void print(vector<T> v){
         cout << v[i] << endl;
     }
     return;
+}
+
+int main(){
+    ll x; cin >> x;
+    if (x>=0){
+        cout << (x+9)/10 << endl;
+    }else{
+        cout << x/10 << endl;
+    }
 }

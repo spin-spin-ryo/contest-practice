@@ -13,7 +13,6 @@
 #include <list>
 #include <deque>
 #include <limits>
-#include <unordered_map>
 
 using namespace std;
 using ll = long long;
@@ -29,4 +28,26 @@ void print(vector<T> v){
         cout << v[i] << endl;
     }
     return;
+}
+
+int main(){
+    string s; 
+    cin >> s;
+    vector<int> counter(26,0);
+    rep(i,s.size()){
+        int index = s[i] - 'a';
+        counter[index]++;
+    }
+    vector<int> two_zero_checker(101,0);
+    rep(i,26){
+        two_zero_checker[counter[i]] ++;
+    }
+    for(int i=1;i<101;i++){
+        if (two_zero_checker[i] != 0 & two_zero_checker[i] != 2){
+            cout << "No" << endl;
+            return 0;
+        }
+    }
+    cout << "Yes" << endl;
+    return 0;
 }

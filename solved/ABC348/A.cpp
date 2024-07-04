@@ -13,7 +13,6 @@
 #include <list>
 #include <deque>
 #include <limits>
-#include <unordered_map>
 
 using namespace std;
 using ll = long long;
@@ -29,4 +28,17 @@ void print(vector<T> v){
         cout << v[i] << endl;
     }
     return;
+}
+
+int main(){
+    int n; cin >> n;
+    string s = "";
+    rep(i,n){
+        if ((i+1)%3 == 0){
+            s += 'x';
+        }else{
+            s += 'o';
+        }
+    }
+    cout << s << endl;
 }

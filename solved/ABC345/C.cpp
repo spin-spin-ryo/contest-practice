@@ -13,7 +13,6 @@
 #include <list>
 #include <deque>
 #include <limits>
-#include <unordered_map>
 
 using namespace std;
 using ll = long long;
@@ -29,4 +28,25 @@ void print(vector<T> v){
         cout << v[i] << endl;
     }
     return;
+}
+
+int main(){
+    string s;cin >> s;
+    vector<int> count(26,0);
+    rep(i,s.size()){
+        count[s[i] - 'a']++;
+    }
+    ll ans = 0;
+    int n = s.size();
+    bool isSame = false;
+    rep(i,s.size()){
+        ans += (n - count[s[i] - 'a']);
+        if (count[s[i] - 'a'] > 1){
+            isSame = true;
+        }
+        n--;
+        count[s[i] - 'a']--;
+    }
+    if (isSame) ans++;
+    cout << ans << endl;
 }

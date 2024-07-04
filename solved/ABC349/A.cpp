@@ -13,7 +13,6 @@
 #include <list>
 #include <deque>
 #include <limits>
-#include <unordered_map>
 
 using namespace std;
 using ll = long long;
@@ -29,4 +28,14 @@ void print(vector<T> v){
         cout << v[i] << endl;
     }
     return;
+}
+
+int main(){
+    int n; cin >> n;
+    int sum = 0;
+    rep(i,n-1){
+        int a; cin >> a;
+        sum += a;
+    }
+    cout << -sum << endl;
 }

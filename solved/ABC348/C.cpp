@@ -31,7 +31,27 @@ void print(vector<T> v){
     return;
 }
 
-
-
 int main(){
+    ll n; cin >> n;
+    unordered_map<ll,ll> color2min_a;
+    rep(i,n){
+        ll a,c; cin >> a >> c;
+        auto itr = color2min_a.find(c);
+        if (itr != color2min_a.end()){
+            color2min_a[c] = min(color2min_a[c],a);
+        }else{
+            color2min_a[c] = a;
+        }
+    }
+    ll max_value = 0;
+    int color = -1;
+    auto itr = color2min_a.begin();
+    while (itr != color2min_a.end()){
+        if (max_value < (*itr).second){
+            color = (*itr).first;
+            max_value = (*itr).second;
+        }
+        itr++;
+    }
+    cout << max_value << endl;
 }

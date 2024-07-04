@@ -30,3 +30,24 @@ void print(vector<T> v){
     }
     return;
 }
+
+int main(){
+    string s; cin >> s;
+    string t; cin >> t;
+    int index = 0;
+    rep(i,s.size()){
+        if (s[i] == tolower(t[index])){
+            index ++;
+            if (index == 3){
+                break;
+            }
+        }
+    }
+    if (index == 3){
+        cout << "Yes" << endl;
+    }else if (index == 2 & t[2] == 'X'){
+        cout << "Yes" << endl;
+    }else{
+        cout << "No" << endl;
+    }
+}

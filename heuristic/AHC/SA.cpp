@@ -172,7 +172,7 @@ class SimulatedAnnealing{
                         }
                     }
                     if (can_use) next_x = new_x;
-                    else continue;
+                    else break;
                 }
                 for(int x=right;x < next_x;x++){
                     for(int y = bottom;y< top;y++){
@@ -192,7 +192,7 @@ class SimulatedAnnealing{
                         }
                     }
                     if (can_use) next_y = new_y;
-                    else continue;
+                    else break;
                 }
                 for(int x=left;x < right;x++){
                     for(int y = top;y< next_y;y++){
@@ -212,7 +212,7 @@ class SimulatedAnnealing{
                         }
                     }
                     if (can_use) next_x = new_x;
-                    else continue;
+                    else break;
                 }
                 for(int x=left-1;x>= next_x;x--){
                     for(int y = bottom;y< top;y++){
@@ -232,7 +232,7 @@ class SimulatedAnnealing{
                         }
                     }
                     if (can_use) next_y = new_y;
-                    else continue;
+                    else break;
                 }
                 for(int x=left;x < right;x++){
                     for(int y = bottom - 1;y>= next_y;y--){

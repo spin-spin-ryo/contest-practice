@@ -13,6 +13,7 @@
 #include <list>
 #include <deque>
 #include <limits>
+#include <unordered_map>
 
 using namespace std;
 using ll = long long;
@@ -31,9 +32,4 @@ void print(vector<T> v){
 }
 
 int main(){
-    int n,q;cin >> n >> q;
-    vector<ll> a(n),b(n),d(n);
-    rep(i,n){
-        cin >> a[i] >> b[i] >> d[i];
-    }
 }

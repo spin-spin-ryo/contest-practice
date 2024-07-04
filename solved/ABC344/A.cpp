@@ -13,7 +13,6 @@
 #include <list>
 #include <deque>
 #include <limits>
-#include <unordered_map>
 
 using namespace std;
 using ll = long long;
@@ -29,4 +28,22 @@ void print(vector<T> v){
         cout << v[i] << endl;
     }
     return;
+}
+
+int main(){
+    string s;
+    string out;
+    cin >> s;
+    int flag =0;
+    rep(i,s.size()){
+        if (s[i] == '|'){
+            flag ++;
+        }else{
+            if (flag%2 == 0){
+                out += s[i];
+            }
+        }
+    }
+    cout << out << endl;
+    
 }

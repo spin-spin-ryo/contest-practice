@@ -13,7 +13,6 @@
 #include <list>
 #include <deque>
 #include <limits>
-#include <unordered_map>
 
 using namespace std;
 using ll = long long;
@@ -31,7 +30,32 @@ void print(vector<T> v){
     return;
 }
 
-
-
 int main(){
+    string s = "wbwbwwbwbwbw";
+    string p = "";
+    int w,b; cin >> w >> b;
+    rep(i,100){
+        p += s;
+    }
+    bool isExist = false;
+    rep(i,p.size() - w -b){
+        int count_w = 0;
+        int count_b = 0;
+        rep(j,w+b){
+            if (p[i+j] =='w'){
+                count_w ++;
+            }else{
+                count_b++;
+            }
+        }
+        if (count_w == w & count_b == b){
+            isExist = true;
+        }
+    }
+    if (isExist){
+        cout << "Yes" << endl;
+    }else{
+        cout << "No" << endl;
+    }
+    
 }

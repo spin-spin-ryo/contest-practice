@@ -13,7 +13,6 @@
 #include <list>
 #include <deque>
 #include <limits>
-#include <unordered_map>
 
 using namespace std;
 using ll = long long;
@@ -29,4 +28,24 @@ void print(vector<T> v){
         cout << v[i] << endl;
     }
     return;
+}
+
+int main(){
+    ll n; cin >> n;
+    vector<ll> x(n);
+    vector<ll> y(n);
+    rep(i,n){
+        cin >> x[i] >> y[i];
+    }
+    rep(i,n){
+        int index = i;
+        ll max_ans = 0;
+        rep(j,n){
+            if (max_ans < (x[i] - x[j])*(x[i] - x[j]) +(y[i] - y[j])*(y[i] - y[j])){
+                index = j;
+                max_ans = (x[i] - x[j])*(x[i] - x[j]) +(y[i] - y[j])*(y[i] - y[j]);
+            }
+        }
+        cout << index + 1 << endl;
+    }
 }

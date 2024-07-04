@@ -30,3 +30,20 @@ void print(vector<T> v){
     }
     return;
 }
+int main(){
+    ll n,k; cin >> n >> k;
+    ll ans = k*(k+1)/2;
+    vector<ll> a(n);
+    rep(i,n) cin >> a[i];
+    unordered_map<ll,int> counter;
+    rep(i,n){
+        auto itr =counter.find(a[i]); 
+        if (itr != counter.end()){
+            continue;
+        }else{
+            counter[a[i]] = 1;
+            if (a[i] <= k) ans -= a[i];
+        }
+    }
+    cout << ans << endl;
+}
